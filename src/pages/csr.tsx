@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
+interface Joke {
+  id: number;
+  type: string;
+  setup: string;
+  punchline: string;
+}
 
-export default function CSRPage() {
-  const [joke, setJoke] = useState(null);
+const CSRPage = () => {
+  const [joke, setJoke] = useState<Joke | null>(null);
 
   useEffect(() => {
     fetch("https://official-joke-api.appspot.com/random_joke")
@@ -23,3 +29,5 @@ export default function CSRPage() {
     </div>
   );
 }
+
+export default CSRPage;

@@ -66,10 +66,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 **SSR was fastest (809 ms).** The server builds the full HTML and sends it to the browser, so content is visible as soon as the document arrives.
 
-**SSG came in the middle (896 ms).** In theory SSG should be the fastest, since pages are pre-built at build time and served as static files. The result here is likely explained by the testing setup:
-
-- The tests were probably run in development mode (`npm run dev`), where Next.js compiles pages on demand and does not truly pre-render static pages, removing SSG's main advantage.
-- Each time was likely a single measurement, so differences under about 100 ms may be noise from caching, CPU load or network variation.
+**SSG came in the middle (896 ms).** In theory SSG should be the fastest, since pages are pre-built at build time and served as static files.
 
 **CSR was slowest (978 ms).** The browser first receives a nearly empty HTML shell, then must download and run JavaScript and fetch data before showing content. This extra round trip explains the longer time.
 
@@ -85,12 +82,6 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 | **SEO** | Excellent | Excellent | Weak |
 | **Data freshness** | Always up to date | Stale until rebuilt | Up to date (fetched live) |
 
-**In short:**
-
-- **SSR** is fast to first content and always fresh, but costs server time on every request.
-- **SSG** is the fastest and cheapest in production, but content is only as fresh as the last build.
-- **CSR** puts the work on the user's device, giving the slowest first load but smooth interaction afterwards.
-
 ## Best Use Case for Each Method
 
 | Method | Best suited for | Examples |
@@ -102,8 +93,6 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 ## Conclusion
 
 In this test, SSR loaded fastest and CSR slowest, with SSG between them. The gaps are small, so the results are not conclusive. For a fair comparison, repeat the test in production mode with the cache disabled and average multiple runs. In production, SSG is expected to beat SSR, because static files can be served instantly, even from a CDN.
-
-No single method is best everywhere. The right choice depends on how often the content changes, whether it is personalized, and whether SEO matters. Many real Next.js apps mix all three.
 
 ## Tech Stack
 

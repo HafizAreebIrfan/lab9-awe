@@ -1,4 +1,17 @@
-export async function getStaticProps() {
+import { GetServerSideProps } from "next";
+
+interface Joke {
+  id: number;
+  type: string;
+  setup: string;
+  punchline: string;
+}
+
+interface SSRPageProps {
+  joke: Joke;
+}
+
+export const getServerSideProps: GetServerSideProps<SSRPageProps> = async () => {
     const res = await fetch('https://official-joke-api.appspot.com/random_joke');
     const joke = await res.json();
   
@@ -10,7 +23,7 @@ export async function getStaticProps() {
     };
   }
   
-  export default function SSGPage({ joke }) {
+  export default function SSGPage({ joke }:SSRPageProps) {
     return (
       <div>
         <h1>Static Site Generation (SSG)</h1>
